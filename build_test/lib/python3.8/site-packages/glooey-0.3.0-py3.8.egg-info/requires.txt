@@ -1,0 +1,6 @@
+pyglet
+more_itertools
+vecrec
+autoprop
+debugtools
+pyyaml
