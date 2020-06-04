@@ -42,6 +42,7 @@ class Menu(QMainWindow):
 
     def creer_nouvelle_partie(self):
         self.fenetre_creer_une_partie = NouvellePartie()
+        self.fenetre_creer_une_partie.setModal(True)
         self.fenetre_creer_une_partie.show()
 
     def init_ui(self):

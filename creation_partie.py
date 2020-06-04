@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import *
 # from PyQt5.QtGui import QRegion, QPalette, QPixmap, QBrush
 
 
-class NouvellePartie(QMainWindow):
+class NouvellePartie(QDialog):
     def __init__(self):
         super(NouvellePartie, self).__init__()
         self.init_ui()
