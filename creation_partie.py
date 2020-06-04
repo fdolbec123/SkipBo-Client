@@ -6,14 +6,17 @@ from PyQt5.QtWidgets import *
 class NouvellePartie(QDialog):
     def __init__(self):
         super(NouvellePartie, self).__init__()
-        self.init_ui()
         self.fenetre_creer_une_partie = None
         self.setWindowTitle("Fenêtre 2")
+        self.bouton_test = QPushButton(self)
+        self.init_ui()
 
     def init_ui(self):
         # --------------- Paramètres de la fenêtre --------------------
         self.resize(600, 360)
         self.center()
+        self.bouton_test.setText("Test")
+        self.bouton_test.setGeometry(10, 10, 50, 50)
 
     def center(self):
         frame = self.frameGeometry()
