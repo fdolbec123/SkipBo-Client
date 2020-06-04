@@ -1,2 +1,5 @@
 # SkipBo-Client
-Client SkipBo
+Client Skip-Bo
+
+
+*Skip-Bo est une marque déposée de Mattel Inc.
