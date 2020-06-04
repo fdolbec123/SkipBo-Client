@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import QRegion, QPalette, QPixmap, QBrush
+from creation_partie import NouvellePartie
 # import sys
 
 
@@ -14,6 +15,7 @@ class Menu(QMainWindow):
         self.proxy = QGraphicsProxyWidget()
         self.background_picture2 = QPixmap()
         # self.setStyleSheet("background-color: yellow;")
+        self.fenetre_creer_une_partie = None
         self.bouton_creer = QPushButton(self)
         self.bouton_rejoindre = QPushButton(self)
         self.bouton_quitter = QPushButton(self)
@@ -28,12 +30,24 @@ class Menu(QMainWindow):
         self.test_rect = QRect()
         self.test_region = QRegion()
 
+    def center(self):
+        frame = self.frameGeometry()
+        ecran_actif = QApplication.desktop().screenNumber(QApplication.desktop().cursor().pos())
+        point_central = QApplication.desktop().screenGeometry(ecran_actif).center()
+        frame.moveCenter(point_central)
+        self.move(frame.topLeft())
+
     def quitter(self):
         self.close()
 
+    def creer_nouvelle_partie(self):
+        self.fenetre_creer_une_partie = NouvellePartie()
+        self.fenetre_creer_une_partie.show()
+
     def init_ui(self):
         # --------------- Paramètres de la fenêtre --------------------
-        self.setGeometry(100, 100, 1280, 720)
+        self.resize(1280, 720)
+        self.center()
         self.background_picture2.load('background_menu2.png')
         self.palette.setBrush(self.backgroundRole(), QBrush(self.background_picture2))
         self.setPalette(self.palette)
@@ -65,6 +79,7 @@ class Menu(QMainWindow):
         self.bouton_creer.setText("Créer une partie")
         self.bouton_creer.setGeometry((self.quart_longueur-160), (3*self.quart_hauteur), self.quart_longueur,
                                       int(self.quart_hauteur / 2))
+        self.bouton_creer.clicked.connect(self.creer_nouvelle_partie)
         self.bouton_rejoindre.setText("Rejoindre une partie")
         self.bouton_rejoindre.setGeometry(((2*self.quart_longueur)-160), (3*self.quart_hauteur), self.quart_longueur,
                                           int(self.quart_hauteur / 2))
@@ -83,11 +98,8 @@ class Menu(QMainWindow):
         self.bouton_quitter.clicked.connect(self.quitter)
 
 
-def main():
+if __name__ == '__main__':
     app = QApplication([])
     menu = Menu()
     menu.show()
     app.exec_()
-
-
-main()
