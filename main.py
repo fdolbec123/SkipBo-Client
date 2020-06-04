@@ -8,8 +8,9 @@ class Menu(QMainWindow):
         self.bouton_quitter = QPushButton(self)
         self.label = QLabel(self)
         self.init_ui()
-        self.setGeometry(100, 100, 1280, 720)
         self.setWindowTitle("Bienvenue dans SkipBo!")
+        self.hauteur = int
+        self.quart_hauteur = int
 
     def quitter(self):
         self.close()
@@ -17,10 +18,13 @@ class Menu(QMainWindow):
         # self.label.repaint()
 
     def init_ui(self):
+        self.setGeometry(100, 100, 1280, 720)
+        self.hauteur = int(self.frameGeometry().height())
+        self.quart_hauteur = int((self.hauteur)/4)
         self.label.setText("Coucou")
         self.label.move(100, 100)
         self.bouton_quitter.setText("Quitter")
-        self.bouton_quitter.move(200, 200)
+        self.bouton_quitter.setGeometry(640, (3*self.quart_hauteur), 300, int((self.quart_hauteur)/2))
         self.bouton_quitter.clicked.connect(self.quitter)
 
 
