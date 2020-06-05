@@ -1,22 +1,56 @@
 from PyQt5.QtWidgets import *
 # from PyQt5.QtCore import *
 # from PyQt5.QtGui import QRegion, QPalette, QPixmap, QBrush
-
+import main
 
 class NouvellePartie(QDialog):
     def __init__(self):
         super(NouvellePartie, self).__init__()
-        self.fenetre_creer_une_partie = None
-        self.setWindowTitle("Fenêtre 2")
-        self.bouton_test = QPushButton(self)
+        # self.fenetre_creer_une_partie = None
+        self.setWindowTitle("Veuillez remplir les éléments suivants")
+        self.boite_texte_username = QLineEdit(self)
+        self.bouton_creer = QPushButton(self)
+        self.bouton_annuler = QPushButton(self)
+        self.invite_username = QLabel(self)
+        self.invite_couleur = QLabel(self)
+        self.invite_nbre_joueur = QLabel(self)
+        self.choix_de_couleur = QComboBox(self)
+        self.choix_nbre_joueur = QComboBox(self)
         self.init_ui()
 
     def init_ui(self):
         # --------------- Paramètres de la fenêtre --------------------
-        self.resize(600, 360)
+        self.resize(640, 325)
         self.center()
-        self.bouton_test.setText("Test")
-        self.bouton_test.setGeometry(10, 10, 50, 50)
+        self.invite_username.setText("Nom d'utilisateur à afficher durant la partie: ")
+        self.invite_couleur.setText("Veuillez choisir une couleur:")
+        self.invite_nbre_joueur.setText("Le nombre de joueurs pour la partie")
+        self.invite_username.adjustSize()
+        self.invite_couleur.adjustSize()
+        self.invite_nbre_joueur.adjustSize()
+        self.invite_username.move(30, 75)
+        self.invite_couleur.move(30, 120)
+        self.invite_nbre_joueur.move(30, 175)
+        self.boite_texte_username.setGeometry(300, 70, 300, 25)
+        self.bouton_annuler.setText("Annuler")
+        self.bouton_annuler.setGeometry(530, 275, 100, 40)
+        self.bouton_annuler.clicked.connect(self.annuler)
+        self.bouton_creer.setDefault(True)
+        self.bouton_creer.setText("Confirmer")
+        self.bouton_creer.setGeometry(430, 275, 100, 40)
+        self.bouton_creer.setEnabled(False)
+        self.bouton_creer.clicked.connect(self.confirmer)
+        self.choix_de_couleur.setGeometry(307, 115, 300, 25)
+        self.choix_de_couleur.addItems(["Couleur 1", "Couleur 2", "Couleur 3", "Couleur 4"])
+        self.choix_nbre_joueur.setGeometry(307, 170, 300, 25)
+        self.choix_nbre_joueur.addItems(["2", "3", "4"])
+        self.boite_texte_username.textChanged.connect(self.texte_change)
+
+    def texte_change(self):
+        if self.boite_texte_username != "":
+            self.bouton_creer.setEnabled(True)
+        if self.boite_texte_username.text() == "":
+            self.bouton_creer.setEnabled(False)
 
     def center(self):
         frame = self.frameGeometry()
@@ -24,6 +58,17 @@ class NouvellePartie(QDialog):
         point_central = QApplication.desktop().screenGeometry(ecran_actif).center()
         frame.moveCenter(point_central)
         self.move(frame.topLeft())
+
+    def annuler(self):
+        self.close()
+
+    def confirmer(self):
+        print("Yup")
+        # send informations to the server backend of the game
+        self.close()
+        main.menu.close()
+
+
 
 
 if __name__ == '__main__':

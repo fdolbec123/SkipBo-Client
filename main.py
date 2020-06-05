@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import QRegion, QPalette, QPixmap, QBrush
-from creation_partie import NouvellePartie
+import creation_partie
 # import sys
 
 
@@ -41,9 +41,12 @@ class Menu(QMainWindow):
         self.close()
 
     def creer_nouvelle_partie(self):
-        self.fenetre_creer_une_partie = NouvellePartie()
+        self.fenetre_creer_une_partie = creation_partie.NouvellePartie()
         self.fenetre_creer_une_partie.setModal(True)
         self.fenetre_creer_une_partie.show()
+
+    def next_step(self):
+        pass
 
     def init_ui(self):
         # --------------- Paramètres de la fenêtre --------------------
