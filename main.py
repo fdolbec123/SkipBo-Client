@@ -1,8 +1,9 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
-from PyQt5.QtGui import QRegion, QPalette, QPixmap, QBrush, QRegExpValidator
+from PyQt5.QtGui import QRegion, QPalette, QPixmap, QBrush
 import creation_partie
 import verification
+import join
 
 
 class Menu(QMainWindow):
@@ -31,7 +32,9 @@ class Menu(QMainWindow):
         self.test_region = QRegion()
         self.rsp = None
         self.rsp2 = None
-
+        self.rsp3 = None
+        self.join = QDialog()
+        self.verification = QDialog()
 
     def center(self):
         frame = self.frameGeometry()
@@ -54,13 +57,19 @@ class Menu(QMainWindow):
             print("Cancel")
 
     def joindre_partie(self):
-        print("join")
         self.verification = verification.Verification()
         self.verification.setModal(True)
         self.verification.show()
         self.rsp2 = self.verification.exec_()
         if self.rsp2 == QDialog.Accepted:
-            print("yes")
+            self.join = join.JoinPartie()
+            self.join.setModal(True)
+            self.join.show()
+            self.rsp3 = self.join.exec_()
+            if self.rsp3 == QDialog.Accepted:
+                self.close()
+            else:
+                print("Join canceled")
         else:
             print("Cancel")
 

@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
-from PyQt5.QtGui import QRegion, QPalette, QPixmap, QBrush, QRegExpValidator
+from PyQt5.QtGui import QRegExpValidator
+
 
 class Verification(QDialog):
     def __init__(self):
@@ -10,6 +11,8 @@ class Verification(QDialog):
         self.bouton_annuler2 = QPushButton(self)
         self.invite_code = QLabel(self)
         self.accept_local_test = "Ok"
+        self.regex2 = QRegExp()
+        self.validator2 = QRegExpValidator()
         self.init_ui()
 
     def init_ui(self):
@@ -54,6 +57,8 @@ class Verification(QDialog):
         if self.boite_texte_code != "":
             if len(self.boite_texte_code.text()) == 4:
                 self.bouton_verifier.setEnabled(True)
+            else:
+                self.bouton_verifier.setEnabled(False)
         if self.boite_texte_code.text() == "":
             self.bouton_verifier.setEnabled(False)
 
