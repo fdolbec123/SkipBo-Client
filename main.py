@@ -76,8 +76,10 @@ class Menu(QMainWindow):
     def init_ui(self):
         # --------------- Paramètres de la fenêtre --------------------
         self.resize(1280, 720)
+        self.setMaximumSize(1280, 720)
+        self.setMinimumSize(1280, 720)
         self.center()
-        self.background_picture2.load('background_menu2.png')
+        self.background_picture2.load('background_menu3.png')
         self.palette.setBrush(self.backgroundRole(), QBrush(self.background_picture2))
         self.setPalette(self.palette)
         # self.background_picture.setStyleSheet("background-image: url(background_menu.png);")
@@ -108,6 +110,7 @@ class Menu(QMainWindow):
         self.bouton_creer.setText("Créer une partie")
         self.bouton_creer.setGeometry((self.quart_longueur-160), (3*self.quart_hauteur), self.quart_longueur,
                                       int(self.quart_hauteur / 2))
+        # self.bouton_creer.setStyleSheet("QPushButton{background: transparent;}")
         self.bouton_creer.clicked.connect(self.creer_nouvelle_partie)
         self.bouton_rejoindre.setText("Rejoindre une partie")
         self.bouton_rejoindre.setGeometry(((2*self.quart_longueur)-160), (3*self.quart_hauteur), self.quart_longueur,
