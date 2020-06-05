@@ -9,6 +9,8 @@ class NouvellePartie(QDialog):
         super(NouvellePartie, self).__init__()
         # self.fenetre_creer_une_partie = None
         self.une_partie = None
+        self.msg = QMessageBox()
+        self.code = int
         self.setWindowTitle("Veuillez remplir les éléments suivants")
         self.boite_texte_username = QLineEdit(self)
         self.bouton_creer = QPushButton(self)
@@ -65,7 +67,14 @@ class NouvellePartie(QDialog):
         self.close()
 
     def confirmer(self):
-        print("Yup")
+        self.code = 1234
+        self.msg.setIcon(QMessageBox.Information)
+        self.msg.setText("Voici votre code d'invitation: " + str(self.code))
+        self.msg.setInformativeText("Garder ce code en note, il permettra aux autres joueurs de se joindre à vous.")
+        self.msg.setWindowTitle("Code d'invitation")
+        # self.msg.setDetailedText("The details are as follows:")
+        self.msg.setStandardButtons(QMessageBox.Ok)
+        retval = self.msg.exec_()
         self.accept()
         if not self.isVisible():
             self.une_partie = jeu.Jeu()

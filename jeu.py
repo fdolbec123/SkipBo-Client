@@ -8,7 +8,7 @@ class Jeu(QMainWindow):
 
     def init_ui(self):
         # --------------- Paramètres de la fenêtre --------------------
-        self.resize(1280, 720)
+        self.resize(1920, 1080)
 
 
 if __name__ == '__main__':
