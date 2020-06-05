@@ -2,12 +2,15 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import QRegion, QPalette, QPixmap, QBrush
 import creation_partie
+import jeu
 # import sys
+
 
 
 class Menu(QMainWindow):
     def __init__(self):
         super(Menu, self).__init__()
+        # self.menu = Menu()
         self.background_picture = QGraphicsView()
         self.scene = QGraphicsScene()
         self.grp = QGroupBox("Mon Groupe")
@@ -44,6 +47,12 @@ class Menu(QMainWindow):
         self.fenetre_creer_une_partie = creation_partie.NouvellePartie()
         self.fenetre_creer_une_partie.setModal(True)
         self.fenetre_creer_une_partie.show()
+        self.rsp = self.fenetre_creer_une_partie.exec_()
+        if self.rsp == QDialog.Accepted:
+            print("B4: pressed is: Accepted - Shutdown or Restart")
+            self.close()
+        else:
+            print("B4: pressed is: Cancel")
 
     def next_step(self):
         pass
@@ -102,8 +111,21 @@ class Menu(QMainWindow):
         self.bouton_quitter.clicked.connect(self.quitter)
 
 
+
+
+# def aller_vers_jeu():
+#     print("1")
+#     # menu.close()
+#     # jeu1 = jeu.Jeu()
+#     # jeu1.show()
+
+
+app = QApplication([])
+menu = Menu()
+
+
 if __name__ == '__main__':
-    app = QApplication([])
-    menu = Menu()
+    # app = QApplication([])
+    # menu = Menu()
     menu.show()
     app.exec_()

@@ -2,11 +2,13 @@ from PyQt5.QtWidgets import *
 # from PyQt5.QtCore import *
 # from PyQt5.QtGui import QRegion, QPalette, QPixmap, QBrush
 import main
+import jeu
 
 class NouvellePartie(QDialog):
     def __init__(self):
         super(NouvellePartie, self).__init__()
         # self.fenetre_creer_une_partie = None
+        self.une_partie = None
         self.setWindowTitle("Veuillez remplir les éléments suivants")
         self.boite_texte_username = QLineEdit(self)
         self.bouton_creer = QPushButton(self)
@@ -64,15 +66,17 @@ class NouvellePartie(QDialog):
 
     def confirmer(self):
         print("Yup")
-        # send informations to the server backend of the game
-        self.close()
-        main.menu.close()
+        self.accept()
+        if not self.isVisible():
+            self.une_partie = jeu.Jeu()
+            self.une_partie.show()
+
 
 
 
 
 if __name__ == '__main__':
-    app = QApplication([])
+    app = QDialog([])
     nouvelle_partie = NouvellePartie()
     nouvelle_partie.show()
     app.exec_()
