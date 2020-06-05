@@ -1,7 +1,8 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
-from PyQt5.QtGui import QRegion, QPalette, QPixmap, QBrush
+from PyQt5.QtGui import QRegion, QPalette, QPixmap, QBrush, QRegExpValidator
 import creation_partie
+import verification
 
 
 class Menu(QMainWindow):
@@ -29,7 +30,8 @@ class Menu(QMainWindow):
         self.test_rect = QRect()
         self.test_region = QRegion()
         self.rsp = None
-        self.accept_local_test = "Ok"
+        self.rsp2 = None
+
 
     def center(self):
         frame = self.frameGeometry()
@@ -47,10 +49,20 @@ class Menu(QMainWindow):
         self.fenetre_creer_une_partie.show()
         self.rsp = self.fenetre_creer_une_partie.exec_()
         if self.rsp == QDialog.Accepted:
-            print("B4: pressed is: Accepted - Shutdown or Restart")
             self.close()
         else:
-            print("B4: pressed is: Cancel")
+            print("Cancel")
+
+    def joindre_partie(self):
+        print("join")
+        self.verification = verification.Verification()
+        self.verification.setModal(True)
+        self.verification.show()
+        self.rsp2 = self.verification.exec_()
+        if self.rsp2 == QDialog.Accepted:
+            print("yes")
+        else:
+            print("Cancel")
 
     def init_ui(self):
         # --------------- Paramètres de la fenêtre --------------------
@@ -91,6 +103,7 @@ class Menu(QMainWindow):
         self.bouton_rejoindre.setText("Rejoindre une partie")
         self.bouton_rejoindre.setGeometry(((2*self.quart_longueur)-160), (3*self.quart_hauteur), self.quart_longueur,
                                           int(self.quart_hauteur / 2))
+        self.bouton_rejoindre.clicked.connect(self.joindre_partie)
         self.bouton_help.setText("?")
         self.bouton_help.setFixedHeight(100)
         self.bouton_help.setFixedWidth(100)

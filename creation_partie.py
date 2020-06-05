@@ -1,4 +1,6 @@
 from PyQt5.QtWidgets import *
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
 import jeu
 
 
@@ -10,6 +12,9 @@ class NouvellePartie(QDialog):
         self.code = int
         self.setWindowTitle("Veuillez remplir les éléments suivants")
         self.boite_texte_username = QLineEdit(self)
+        self.regex = QRegExp("^\w[\w|\s|\.]+")
+        self.validator = QRegExpValidator(self.regex)
+        self.boite_texte_username.setValidator(self.validator)
         self.bouton_creer = QPushButton(self)
         self.bouton_annuler = QPushButton(self)
         self.invite_username = QLabel(self)
