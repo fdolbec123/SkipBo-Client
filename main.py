@@ -2,15 +2,11 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import QRegion, QPalette, QPixmap, QBrush
 import creation_partie
-import jeu
-# import sys
-
 
 
 class Menu(QMainWindow):
     def __init__(self):
         super(Menu, self).__init__()
-        # self.menu = Menu()
         self.background_picture = QGraphicsView()
         self.scene = QGraphicsScene()
         self.grp = QGroupBox("Mon Groupe")
@@ -32,6 +28,8 @@ class Menu(QMainWindow):
         self.quart_longueur = int
         self.test_rect = QRect()
         self.test_region = QRegion()
+        self.rsp = None
+        self.accept_local_test = "Ok"
 
     def center(self):
         frame = self.frameGeometry()
@@ -53,9 +51,6 @@ class Menu(QMainWindow):
             self.close()
         else:
             print("B4: pressed is: Cancel")
-
-    def next_step(self):
-        pass
 
     def init_ui(self):
         # --------------- Paramètres de la fenêtre --------------------
@@ -100,7 +95,6 @@ class Menu(QMainWindow):
         self.bouton_help.setFixedHeight(100)
         self.bouton_help.setFixedWidth(100)
         self.bouton_help.move(self.longueur-int(self.quart_longueur / (4/2)), -10)
-        # self.bouton_help.setGeometry(200, 150, 100, 100)
         self.test_rect = QRect(20, 20, 60, 60)
         self.test_region = QRegion(self.test_rect, QRegion.Ellipse)
         self.test_region.boundingRect().size()
@@ -111,21 +105,8 @@ class Menu(QMainWindow):
         self.bouton_quitter.clicked.connect(self.quitter)
 
 
-
-
-# def aller_vers_jeu():
-#     print("1")
-#     # menu.close()
-#     # jeu1 = jeu.Jeu()
-#     # jeu1.show()
-
-
-app = QApplication([])
-menu = Menu()
-
-
 if __name__ == '__main__':
-    # app = QApplication([])
-    # menu = Menu()
+    app = QApplication([])
+    menu = Menu()
     menu.show()
     app.exec_()

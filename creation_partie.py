@@ -1,13 +1,10 @@
 from PyQt5.QtWidgets import *
-# from PyQt5.QtCore import *
-# from PyQt5.QtGui import QRegion, QPalette, QPixmap, QBrush
-import main
 import jeu
+
 
 class NouvellePartie(QDialog):
     def __init__(self):
         super(NouvellePartie, self).__init__()
-        # self.fenetre_creer_une_partie = None
         self.une_partie = None
         self.msg = QMessageBox()
         self.code = int
@@ -72,20 +69,16 @@ class NouvellePartie(QDialog):
         self.msg.setText("Voici votre code d'invitation: " + str(self.code))
         self.msg.setInformativeText("Garder ce code en note, il permettra aux autres joueurs de se joindre à vous.")
         self.msg.setWindowTitle("Code d'invitation")
-        # self.msg.setDetailedText("The details are as follows:")
         self.msg.setStandardButtons(QMessageBox.Ok)
-        retval = self.msg.exec_()
+        self.msg.exec_()
         self.accept()
         if not self.isVisible():
             self.une_partie = jeu.Jeu()
             self.une_partie.show()
 
 
-
-
-
 if __name__ == '__main__':
-    app = QDialog([])
+    app = QDialog()
     nouvelle_partie = NouvellePartie()
     nouvelle_partie.show()
     app.exec_()

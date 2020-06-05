@@ -9,6 +9,14 @@ class Jeu(QMainWindow):
     def init_ui(self):
         # --------------- Paramètres de la fenêtre --------------------
         self.resize(1920, 1080)
+        self.center()
+
+    def center(self):
+        frame = self.frameGeometry()
+        ecran_actif = QApplication.desktop().screenNumber(QApplication.desktop().cursor().pos())
+        point_central = QApplication.desktop().screenGeometry(ecran_actif).center()
+        frame.moveCenter(point_central)
+        self.move(frame.topLeft())
 
 
 if __name__ == '__main__':
