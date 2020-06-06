@@ -63,7 +63,7 @@ class JoinPartie(QDialog):
     def confirmer(self):
         self.accept()
         if not self.isVisible():
-            self.une_partie = jeu.Jeu()
+            self.une_partie = jeu.Jeu(2, self.boite_texte_username.text(),  self.choix_de_couleur.currentText())
             self.une_partie.show()
 
 

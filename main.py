@@ -7,6 +7,7 @@ import join
 
 
 class Menu(QMainWindow):
+    # ------------------------- Init ----------------------------------
     def __init__(self):
         super(Menu, self).__init__()
         self.background_picture = QGraphicsView()
@@ -15,7 +16,6 @@ class Menu(QMainWindow):
         self.palette = QPalette()
         self.proxy = QGraphicsProxyWidget()
         self.background_picture2 = QPixmap()
-        # self.setStyleSheet("background-color: yellow;")
         self.fenetre_creer_une_partie = None
         self.bouton_creer = QPushButton(self)
         self.bouton_rejoindre = QPushButton(self)
@@ -35,21 +35,28 @@ class Menu(QMainWindow):
         self.rsp3 = None
         self.join = QDialog()
         self.verification = QDialog()
-        self.quitter_icon = QIcon
-        self.join_icon = QIcon
-        self.creer_icon = QIcon
-        self.help_icon = QIcon
+        self.quitter_icon = QIcon()
+        self.join_icon = QIcon()
+        self.creer_icon = QIcon()
+        self.help_icon = QIcon()
+        self.msg_help = QMessageBox()
+    # ---------------------- Fin du Init ------------------------------
 
+    # ---------------------- Fonction pour centrer la fenêtre dans l'écran ----------------------
     def center(self):
         frame = self.frameGeometry()
         ecran_actif = QApplication.desktop().screenNumber(QApplication.desktop().cursor().pos())
         point_central = QApplication.desktop().screenGeometry(ecran_actif).center()
         frame.moveCenter(point_central)
         self.move(frame.topLeft())
+    # --------------------- Fin de la fonction --------------------------------------------------
 
+    # --------------------- Fonction quitter ----------------------------------------------------
     def quitter(self):
         self.close()
+    # --------------------- Fin de la fonction --------------------------------------------------
 
+    # --------------------- Fonction pour créer une partie --------------------------------------
     def creer_nouvelle_partie(self):
         self.fenetre_creer_une_partie = creation_partie.NouvellePartie()
         self.fenetre_creer_une_partie.setModal(True)
@@ -59,7 +66,9 @@ class Menu(QMainWindow):
             self.close()
         else:
             print("Cancel")
+    # --------------------- Fin de la fonction -------------------------------------------------
 
+    # --------------------- Fonction pour joindre une partie -----------------------------------
     def joindre_partie(self):
         self.verification = verification.Verification()
         self.verification.setModal(True)
@@ -76,11 +85,21 @@ class Menu(QMainWindow):
                 print("Join canceled")
         else:
             print("Cancel")
+    # --------------------- Fin de la fonction -------------------------------------------------
 
+    # --------------------- Fonction d'aide ----------------------------------------------------
     def help(self):
-        print("help")
-        pass
+        self.msg_help.setIcon(QMessageBox.Information)
+        self.msg_help.setText("Bienvenue dans la rubrique d'aide")
+        self.msg_help.setInformativeText('Pour créer une partie, cliquez sur le bouton "Créer une partie".\n \nPour '
+                                         'joindre une partie, ayez d\'abord votre code d\'invitation en main, puis '
+                                         'cliquez sur joindre une partie.')
+        self.msg_help.setWindowTitle("Rubrique d'aide")
+        self.msg_help.setStandardButtons(QMessageBox.Ok)
+        self.msg_help.exec_()
+    # --------------------- Fin de la fonction -------------------------------------------------
 
+    # --------------------- Initialisation de la fenêtre et des éléments graphique -------------
     def init_ui(self):
         # --------------- Paramètres de la fenêtre --------------------
         self.resize(1280, 720)
@@ -105,7 +124,6 @@ class Menu(QMainWindow):
         self.bouton_creer.setIconSize(QSize(320, 90))
         self.bouton_creer.setGeometry((self.quart_longueur-160), (3*self.quart_hauteur), self.quart_longueur,
                                       int(self.quart_hauteur / 2))
-        # self.bouton_creer.setStyleSheet("QPushButton{background: transparent;}")
         self.bouton_creer.clicked.connect(self.creer_nouvelle_partie)
         self.bouton_rejoindre.setText("")
         self.join_icon = QIcon("bouton_join.png")
@@ -133,6 +151,9 @@ class Menu(QMainWindow):
         self.bouton_quitter.setGeometry(((3*self.quart_longueur)-160), (3*self.quart_hauteur), self.quart_longueur,
                                         int(self.quart_hauteur / 2))
         self.bouton_quitter.clicked.connect(self.quitter)
+    # ---------------------------- Fin de l'initialisation ---------------------------------------------------------
+
+# -------------------------------- Main loop -----------------------------------------------------------------------
 
 
 if __name__ == '__main__':
