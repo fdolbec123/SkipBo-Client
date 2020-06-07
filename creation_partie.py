@@ -47,7 +47,7 @@ class NouvellePartie(QDialog):
         self.bouton_creer.setEnabled(False)
         self.bouton_creer.clicked.connect(self.confirmer)
         self.choix_de_couleur.setGeometry(307, 115, 300, 25)
-        self.choix_de_couleur.addItems(["Couleur 1", "Couleur 2", "Couleur 3", "Couleur 4"])
+        self.choix_de_couleur.addItems(["Rouge", "Bleu", "Vert", "Jaune"])
         self.choix_nbre_joueur.setGeometry(307, 170, 300, 25)
         self.choix_nbre_joueur.addItems(["2", "3", "4"])
         self.boite_texte_username.textChanged.connect(self.texte_change)
@@ -79,7 +79,8 @@ class NouvellePartie(QDialog):
         self.accept()
         if not self.isVisible():
             # jeu.Game()
-            self.une_partie = jeu.Jeu(int(self.choix_nbre_joueur.currentText()), self.boite_texte_username.text(), self.choix_de_couleur.currentText())
+            self.une_partie = jeu.Jeu(int(self.choix_nbre_joueur.currentText()), self.boite_texte_username.text(),
+                                      self.choix_de_couleur.currentText())
             self.une_partie.show()
 
 
