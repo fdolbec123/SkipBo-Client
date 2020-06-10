@@ -2,7 +2,12 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 import jeu
-
+import socket
+import pickle
+server = "192.168.100.195"
+port = 5555
+socket_de_connexion = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+address = (server, port)
 
 class NouvellePartie(QDialog):
     def __init__(self):
@@ -22,6 +27,7 @@ class NouvellePartie(QDialog):
         self.invite_nbre_joueur = QLabel(self)
         self.choix_de_couleur = QComboBox(self)
         self.choix_nbre_joueur = QComboBox(self)
+        self.cartes_de_depart = ()
         self.init_ui()
 
     def init_ui(self):
@@ -68,8 +74,31 @@ class NouvellePartie(QDialog):
     def annuler(self):
         self.close()
 
+    def send(self):
+        print("Trying to send informations to server...")
+        socket_de_connexion.connect(address)
+        msg = socket_de_connexion.recv(2048)
+        message = pickle.loads(msg)
+        print(message)
+        if message == "Connecté!":
+            data_to_send = pickle.dumps("create")
+            socket_de_connexion.send(data_to_send)
+            code = socket_de_connexion.recv(2048)
+            code_invitation = pickle.loads(code)
+            print(code_invitation)
+            self.code = code_invitation
+            player_info = {"username": self.boite_texte_username.text(), "couleur": self.choix_de_couleur.currentText()}
+            nbre_de_joueur = int(self.choix_nbre_joueur.currentText())
+            joueurs = pickle.dumps((nbre_de_joueur, player_info))
+            socket_de_connexion.send(joueurs)
+            depart = socket_de_connexion.recv(2048)
+            self.cartes_de_depart = pickle.loads(depart)
+            # print(self.cartes_de_depart)
+
     def confirmer(self):
-        self.code = 1234
+        self.send()
+        # self.code = 1234
+        print("Voici les cartes de départs: " + str(self.cartes_de_depart))
         self.msg.setIcon(QMessageBox.Information)
         self.msg.setText("Voici votre code d'invitation: " + str(self.code))
         self.msg.setInformativeText("Garder ce code en note, il permettra aux autres joueurs de se joindre à vous.")
