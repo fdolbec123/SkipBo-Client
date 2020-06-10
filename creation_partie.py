@@ -109,7 +109,7 @@ class NouvellePartie(QDialog):
         if not self.isVisible():
             # jeu.Game()
             self.une_partie = jeu.Jeu(int(self.choix_nbre_joueur.currentText()), self.boite_texte_username.text(),
-                                      self.choix_de_couleur.currentText())
+                                      self.choix_de_couleur.currentText(), self.cartes_de_depart)
             self.une_partie.show()
 
 
