@@ -2,12 +2,14 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 import jeu
-import socket
+# import socket
 import pickle
-server = "192.168.100.195"
-port = 5555
-socket_de_connexion = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-address = (server, port)
+# server = "192.168.100.195"
+# port = 5555
+# socket_de_connexion = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+# address = (server, port)
+import connexion
+
 
 class NouvellePartie(QDialog):
     def __init__(self):
@@ -76,22 +78,23 @@ class NouvellePartie(QDialog):
 
     def send(self):
         print("Trying to send informations to server...")
-        socket_de_connexion.connect(address)
-        msg = socket_de_connexion.recv(2048)
+        # socket_de_connexion.connect(address)
+        connexion.connecter()
+        msg = connexion.socket_de_connexion.recv(2048)
         message = pickle.loads(msg)
         print(message)
         if message == "Connecté!":
             data_to_send = pickle.dumps("create")
-            socket_de_connexion.send(data_to_send)
-            code = socket_de_connexion.recv(2048)
+            connexion.socket_de_connexion.send(data_to_send)
+            code = connexion.socket_de_connexion.recv(2048)
             code_invitation = pickle.loads(code)
             print(code_invitation)
             self.code = code_invitation
             player_info = {"username": self.boite_texte_username.text(), "couleur": self.choix_de_couleur.currentText()}
             nbre_de_joueur = int(self.choix_nbre_joueur.currentText())
             joueurs = pickle.dumps((nbre_de_joueur, player_info))
-            socket_de_connexion.send(joueurs)
-            depart = socket_de_connexion.recv(2048)
+            connexion.socket_de_connexion.send(joueurs)
+            depart = connexion.socket_de_connexion.recv(2048)
             self.cartes_de_depart = pickle.loads(depart)
             # print(self.cartes_de_depart)
 

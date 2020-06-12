@@ -17,6 +17,7 @@ class Jeu(QMainWindow):
         self.palette = QPalette()
         self.icon_joueur = QPixmap()
         self.label_icon_joueur = QLabel(self)
+        self.label_count = QLabel(self)
         self.commande_defausser = QCheckBox(self)
         self.deck = QPushButton(self)
         self.main1 = QPushButton(self)
@@ -90,6 +91,9 @@ class Jeu(QMainWindow):
         self.commande_defausser.setFont(QFont('Arial', 24))
         self.commande_defausser.adjustSize()
         self.commande_defausser.move(1519.5, 1000)
+        self.label_count.setStyleSheet("color:white")
+        self.label_count.setFont(QFont('Arial', 24))
+        self.label_count.move(425, 718)
         # print(self.cartes_de_depart)
         if self.nbre_de_joueur == 2:
             (self.talon, self.cartes_deck, self.cartes_main, self.count, self.carte_deck_j1, self.nbre_cartes_main_j1,
@@ -126,6 +130,8 @@ class Jeu(QMainWindow):
             self.main3.move(892.5, 945)
             self.main4.move(1032.5, 945)
             self.main5.move(1172.5, 945)
+            self.label_count.setText(str(self.count))
+            # self.label_count.adjustSize()
 
     def center(self):
         frame = self.frameGeometry()

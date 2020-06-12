@@ -2,11 +2,18 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 import jeu
+import connexion
+import socket
+import pickle
+# server = "192.168.100.195"
+# port = 5555
+# address = (server, port)
 
 
 class JoinPartie(QDialog):
     def __init__(self):
         super(JoinPartie, self).__init__()
+        # self.socket_de_connexion = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.une_partie = None
         self.code = int
         self.setWindowTitle("Veuillez remplir les éléments suivants")
@@ -61,6 +68,8 @@ class JoinPartie(QDialog):
         self.close()
 
     def confirmer(self):
+        test = pickle.dumps("test'")
+        connexion.socket_de_connexion.send(test)
         self.accept()
         if not self.isVisible():
             self.une_partie = jeu.Jeu(2, self.boite_texte_username.text(),  self.choix_de_couleur.currentText())

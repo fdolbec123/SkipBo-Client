@@ -40,6 +40,7 @@ class Menu(QMainWindow):
         self.creer_icon = QIcon()
         self.help_icon = QIcon()
         self.msg_help = QMessageBox()
+        # self.socket_connexion = None
     # ---------------------- Fin du Init ------------------------------
 
     # ---------------------- Fonction pour centrer la fenêtre dans l'écran ----------------------
@@ -74,7 +75,9 @@ class Menu(QMainWindow):
         self.verification.setModal(True)
         self.verification.show()
         self.rsp2 = self.verification.exec_()
+        # print(self.verification.socket_de_connection)
         if self.rsp2 == QDialog.Accepted:
+            # print(self.socket_connexion)
             self.join = join.JoinPartie()
             self.join.setModal(True)
             self.join.show()
