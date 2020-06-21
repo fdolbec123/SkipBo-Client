@@ -30,8 +30,14 @@ class Jeu(QMainWindow):
         self.cartes_main = []
         self.count = 30
         self.carte_deck_j1 = None
+        self.carte_deck_j2 = None
+        self.carte_deck_j3 = None
         self.nbre_cartes_main_j1 = 5
         self.count_j1 = 30
+        self.nbre_cartes_main_j2 = 5
+        self.count_j2 = 30
+        self.nbre_cartes_main_j3 = 5
+        self.count_j3 = 30
         self.c1 = QIcon("cartes/1.png")
         self.c2 = QIcon("cartes/2.png")
         self.c3 = QIcon("cartes/3.png")
@@ -124,6 +130,81 @@ class Jeu(QMainWindow):
             self.main3.resize(135,210)
             self.main4.resize(135,210)
             self.main5.resize(135,210)
+            self.deck.move(365, 830)
+            self.main1.move(612.5, 945)
+            self.main2.move(752.5, 945)
+            self.main3.move(892.5, 945)
+            self.main4.move(1032.5, 945)
+            self.main5.move(1172.5, 945)
+            self.label_count.setText(str(self.count))
+        elif self.nbre_de_joueur == 3:
+            (self.talon, self.cartes_deck, self.cartes_main, self.count, self.carte_deck_j1,
+             self.nbre_cartes_main_j1, self.count_j1, self.carte_deck_j2,
+             self.nbre_cartes_main_j2, self.count_j2) = self.cartes_de_depart
+            print(self.cartes_deck)
+            self.icon_deck = self.set_icon(self.cartes_deck[0])
+            # print(self.icon_deck)
+            self.icon_m1 = self.set_icon(self.cartes_main[0])
+            self.icon_m2 = self.set_icon(self.cartes_main[1])
+            self.icon_m3 = self.set_icon(self.cartes_main[2])
+            self.icon_m4 = self.set_icon(self.cartes_main[3])
+            self.icon_m5 = self.set_icon(self.cartes_main[4])
+            self.deck.setIcon(self.icon_deck)
+            self.main1.setIcon(self.icon_m1)
+            self.main2.setIcon(self.icon_m2)
+            self.main3.setIcon(self.icon_m3)
+            self.main4.setIcon(self.icon_m4)
+            self.main5.setIcon(self.icon_m5)
+            self.main1.setIconSize(QSize(135, 210))
+            self.main2.setIconSize(QSize(135, 210))
+            self.main3.setIconSize(QSize(135, 210))
+            self.main4.setIconSize(QSize(135, 210))
+            self.main5.setIconSize(QSize(135, 210))
+            self.deck.setIconSize(QSize(135, 210))
+            self.deck.resize(135, 210)
+            self.main1.resize(135, 210)
+            self.main2.resize(135, 210)
+            self.main3.resize(135, 210)
+            self.main4.resize(135, 210)
+            self.main5.resize(135, 210)
+            self.deck.move(365, 830)
+            self.main1.move(612.5, 945)
+            self.main2.move(752.5, 945)
+            self.main3.move(892.5, 945)
+            self.main4.move(1032.5, 945)
+            self.main5.move(1172.5, 945)
+            self.label_count.setText(str(self.count))
+        elif self.nbre_de_joueur == 4:
+            (self.talon, self.cartes_deck, self.cartes_main, self.count, self.carte_deck_j1,
+             self.nbre_cartes_main_j1, self.count_j1, self.carte_deck_j2,
+             self.nbre_cartes_main_j2, self.count_j2, self.carte_deck_j3,
+             self.nbre_cartes_main_j3, self.count_j3) = self.cartes_de_depart
+            print(self.cartes_deck)
+            self.icon_deck = self.set_icon(self.cartes_deck[0])
+            # print(self.icon_deck)
+            self.icon_m1 = self.set_icon(self.cartes_main[0])
+            self.icon_m2 = self.set_icon(self.cartes_main[1])
+            self.icon_m3 = self.set_icon(self.cartes_main[2])
+            self.icon_m4 = self.set_icon(self.cartes_main[3])
+            self.icon_m5 = self.set_icon(self.cartes_main[4])
+            self.deck.setIcon(self.icon_deck)
+            self.main1.setIcon(self.icon_m1)
+            self.main2.setIcon(self.icon_m2)
+            self.main3.setIcon(self.icon_m3)
+            self.main4.setIcon(self.icon_m4)
+            self.main5.setIcon(self.icon_m5)
+            self.main1.setIconSize(QSize(135, 210))
+            self.main2.setIconSize(QSize(135, 210))
+            self.main3.setIconSize(QSize(135, 210))
+            self.main4.setIconSize(QSize(135, 210))
+            self.main5.setIconSize(QSize(135, 210))
+            self.deck.setIconSize(QSize(135, 210))
+            self.deck.resize(135, 210)
+            self.main1.resize(135, 210)
+            self.main2.resize(135, 210)
+            self.main3.resize(135, 210)
+            self.main4.resize(135, 210)
+            self.main5.resize(135, 210)
             self.deck.move(365, 830)
             self.main1.move(612.5, 945)
             self.main2.move(752.5, 945)
