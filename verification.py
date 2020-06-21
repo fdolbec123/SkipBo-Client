@@ -99,6 +99,13 @@ class Verification(QDialog):
                     sys.exit()
                 elif answer == "Yes":
                     print("yes")
+                    une_commande = pickle.dumps("couleurs")
+                    print(une_commande)
+                    connexion.socket_de_connexion.send(une_commande)
+                    couleurs_pickled = connexion.socket_de_connexion.recv(2048)
+                    couleurs_restantes = pickle.loads(couleurs_pickled)
+                    print(couleurs_restantes)
+                    connexion.couleurs = couleurs_restantes
                     #return self.socket_de_connexion
                     self.accept()
         if self.accept_local_test == "Ok":

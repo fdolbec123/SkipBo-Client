@@ -32,6 +32,7 @@ class JoinPartie(QDialog):
         # --------------- Paramètres de la fenêtre --------------------
         self.resize(640, 325)
         self.center()
+        print(connexion.couleurs)
         self.invite_username.setText("Nom d'utilisateur à afficher durant la partie: ")
         self.invite_couleur.setText("Veuillez choisir une couleur:")
         self.invite_username.adjustSize()
@@ -48,7 +49,7 @@ class JoinPartie(QDialog):
         self.bouton_creer.setEnabled(False)
         self.bouton_creer.clicked.connect(self.confirmer)
         self.choix_de_couleur.setGeometry(307, 115, 300, 25)
-        self.choix_de_couleur.addItems(["Couleur 1", "Couleur 2", "Couleur 3"])
+        self.choix_de_couleur.addItems(connexion.couleurs)
         self.boite_texte_username.textChanged.connect(self.texte_change)
 
     def texte_change(self):
@@ -68,11 +69,15 @@ class JoinPartie(QDialog):
         self.close()
 
     def confirmer(self):
-        test = pickle.dumps("test'")
-        connexion.socket_de_connexion.send(test)
+        infos = {"username": self.boite_texte_username.text(), "couleur": self.choix_de_couleur.currentText()}
+        infos_du_joueur = pickle.dumps(infos)
+        connexion.socket_de_connexion.send(infos_du_joueur)
+        cartes_joueur_pickled = connexion.socket_de_connexion.recv(2048)
+        cartes_joueur = pickle.loads(cartes_joueur_pickled)
         self.accept()
         if not self.isVisible():
-            self.une_partie = jeu.Jeu(2, self.boite_texte_username.text(),  self.choix_de_couleur.currentText())
+            self.une_partie = jeu.Jeu(2, self.boite_texte_username.text(),  self.choix_de_couleur.currentText(),
+                                      cartes_joueur)
             self.une_partie.show()
 
 
